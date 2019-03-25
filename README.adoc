@@ -1,0 +1,13 @@
+# Postgres 11 with reduced writes I/O setup
+
+Purpose: performance optimization for cases such as unit-tests; has a similar effect as an in-memory db.
+
+Changes to default config (/var/lib/postgresql/data/postgresql.conf)
+
+fsync=off
+synchronous_commit=off
+full_page_writes=off
+bgwriter_lru_maxpages=0
+
+
+port=15432
