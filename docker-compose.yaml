@@ -1,0 +1,22 @@
+# This postgres service is for dev (pycharm)
+version: "3.4"
+services:
+  postgres_dev:
+    build:
+      context: .
+    image: local/postgres_nofsync
+    container_name: postgres_nofsync
+    environment:
+      POSTGRES_DB: pvzddb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeit
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - target: 15432
+        published: 15432
+        mode: host
+    volumes:
+      - postgres_nofsync.data:/var/lib/postgresql/data
+volumes:
+    postgres_nofsync.data:
+        name: postgres_nofsync.data

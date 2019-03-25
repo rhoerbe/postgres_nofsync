@@ -1,13 +1,24 @@
-# Postgres 11 with reduced writes I/O setup
+= Postgres 11 with reduced writes I/O setup
 
-Purpose: performance optimization for cases such as unit-tests; has a similar effect as an in-memory db.
+== Purpose
 
-Changes to default config (/var/lib/postgresql/data/postgresql.conf)
+Performance optimization for cases such as unit-tests; has a similar effect as an in-memory db.
 
-fsync=off
-synchronous_commit=off
-full_page_writes=off
-bgwriter_lru_maxpages=0
+== Changes to default config
+
+/var/lib/postgresql/data/postgresql.conf
+
+    fsync=off
+    synchronous_commit=off
+    full_page_writes=off
+    bgwriter_lru_maxpages=0
 
 
-port=15432
+    port=15432
+
+Note: To provide a default postgresql.conf, the PGDATA location must be different from the config location,
+otherwise initdb will complain about a non-empty directory. E.g. PGDATA=/var/lib/postgresql/data/pgdata
+
+== Build
+
+docker build -t postgres_nofsync .
