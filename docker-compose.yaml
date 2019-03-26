@@ -1,7 +1,7 @@
 # This postgres service is for dev (pycharm)
 version: "3.4"
 services:
-  postgres_dev:
+  postgres_nofsync:
     build:
       context: .
     image: local/postgres_nofsync
