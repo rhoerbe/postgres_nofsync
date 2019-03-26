@@ -4,9 +4,13 @@
 
 Performance optimization for cases such as unit-tests; has a similar effect as an in-memory db.
 
-== Changes to default config
+== New default config
 
-/var/lib/postgresql/data/postgresql.conf
+The image provides a new default postgresql.conf that needs to be copied to the actual postgresql.conf after initdb, like:
+
+    cp /var/lib/postgresql/data/postgresql.conf /var/lib/postgresql/data/pgdata/postgresql.conf
+
+The changes in this file are:
 
     fsync=off
     synchronous_commit=off
@@ -16,9 +20,9 @@ Performance optimization for cases such as unit-tests; has a similar effect as a
 
     port=15432
 
-Note: To provide a default postgresql.conf, the PGDATA location must be different from the config location,
+Note: For this to work the PGDATA location must be different from the config location,
 otherwise initdb will complain about a non-empty directory. E.g. PGDATA=/var/lib/postgresql/data/pgdata
 
 == Build
 
-docker build -t postgres_nofsync .
+docker build -t local/postgres_nofsync .
